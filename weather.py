@@ -1,8 +1,10 @@
 import csv
 from datetime import datetime
 
-DEGREE_SYBMOL = u"\N{DEGREE SIGN}C"
+DEGREE_SYBMOL = u"\N{DEGREE SIGN}C"  #this is a constant 
 
+#can leave doc strings in
+#add functions for the doc strings descriptions
 
 def format_temperature(temp):
     """Takes a temperature and returns it in string format with the degrees
