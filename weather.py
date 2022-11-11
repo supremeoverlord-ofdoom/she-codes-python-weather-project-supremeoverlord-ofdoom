@@ -26,6 +26,14 @@ def convert_date(iso_string):
     Returns:
         A date formatted like: Weekday Date Month Year e.g. Tuesday 06 July 2021
     """
+    from datetime import datetime
+    y = datetime.fromisoformat(iso_string)
+    y_year = y.year
+    y_weekday = y.strftime("%A")
+    y_day = y.strftime("%d")
+    y_month = y.strftime("%B")
+    formatted_date = f"{y_weekday} {y_day} {y_month} {y_year}"
+    return(formatted_date)
     pass
 
 
