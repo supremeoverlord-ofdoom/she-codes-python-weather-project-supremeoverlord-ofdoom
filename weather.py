@@ -27,7 +27,7 @@ def convert_date(iso_string):
         A date formatted like: Weekday Date Month Year e.g. Tuesday 06 July 2021
     """
     from datetime import datetime
-    y = datetime.fromisoformat(iso_string)
+    y = datetime.fromisoformat(iso_string) #converts string into datetime in iso format
     y_year = y.year
     y_weekday = y.strftime("%A")
     y_day = y.strftime("%d")
@@ -45,6 +45,10 @@ def convert_f_to_c(temp_in_farenheit):
     Returns:
         A float representing a temperature in degrees celcius, rounded to 1dp.
     """
+    temp_in_farenheit = float(temp_in_farenheit) #convert to float
+    temp_in_celcius = ((temp_in_farenheit -32) * 5/9) #converts fahrenheit to celcius
+    temp_in_celcius = float("{:.1f}".format(temp_in_celcius)) #store as 2 decimal places as float
+    return temp_in_celcius
     pass
 
 
@@ -56,6 +60,12 @@ def calculate_mean(weather_data):
     Returns:
         A float representing the mean value.
     """
+    total = 0
+    for num in weather_data:
+        num = float(num)
+        total += num
+        mean = (total/len(weather_data))
+    return mean
     pass
 
 
