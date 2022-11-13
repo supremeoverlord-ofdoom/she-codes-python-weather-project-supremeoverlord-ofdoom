@@ -77,8 +77,17 @@ def load_data_from_csv(csv_file):
     Returns:
         A list of lists, where each sublist is a (non-empty) line in the csv file.
     """
+    import csv
+    stored_data_list = []
+    rows = []
+    with open(csv_file, encoding="utf-8") as csv_file: #encoding turns into binary string so computer can read it
+        reader = csv.reader(csv_file)  #reader allows us to loop over lines in csv
+        next(reader)
+        for line in reader:
+            if line != []: #if line not blank
+                rows.append([line[0], int(line[1]), int(line[2])])
+    return rows
     pass
-
 
 def find_min(weather_data):
     """Calculates the minimum value in a list of numbers.
@@ -88,6 +97,24 @@ def find_min(weather_data):
     Returns:
         The minium value and it's position in the list.
     """
+    weather_data_num = []
+    for num in weather_data:
+        weather_data_num.append(float(num))
+    # print(weather_data_num)
+    min_temp = min(weather_data_num, default=None)
+    location = [i for i in range(len(weather_data_num)) if weather_data_num[i]==min_temp]
+    if len(location) >1:
+        location = location[1]
+    elif min_temp == None:
+        location = None
+    else:
+        location = location[0]
+
+    if min_temp == None:
+        result = ()  # otherwise it will do weird stuff
+    else:
+        result = (min_temp, location)
+    return result
     pass
 
 
@@ -99,6 +126,25 @@ def find_max(weather_data):
     Returns:
         The maximum value and it's position in the list.
     """
+    
+    weather_data_num = []
+    for num in weather_data:
+        weather_data_num.append(float(num))
+    # print(weather_data_num)
+    max_temp = max(weather_data_num, default=None)
+    location = [i for i in range(len(weather_data_num)) if weather_data_num[i]==max_temp]
+    if len(location) >1:
+        location = location[1]
+    elif max_temp == None:
+        location = None
+    else:
+        location = location[0]
+
+    if max_temp == None:
+        result = ()  # otherwise it will do weird stuff
+    else:
+        result = (max_temp, location)
+    return result
     pass
 
 
