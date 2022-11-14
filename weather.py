@@ -156,6 +156,47 @@ def generate_summary(weather_data):
     Returns:
         A string containing the summary information.
     """
+
+    num_of_days = len(weather_data)
+    weather_data_lows_list = []
+    weather_data_highs_list = []
+
+    for item in weather_data:
+        weather_data_lows_list.append(item[1])
+    for item in weather_data:
+        weather_data_highs_list.append(item[2])
+
+    # weather_data_ultimate_list = weather_data_lows_list + weather_data_highs_list
+    # print(weather_data_ultimate_list)
+
+    # max_temp_and_location = find_max(weather_data_ultimate_list) #hashing out for now because there is a possible error in assignment
+    max_temp_and_location = find_max(weather_data_highs_list)
+    max_temp_value = max_temp_and_location[0]
+    max_temp_value_celcius = convert_f_to_c(max_temp_value)
+
+    # min_temp_and_location = find_min(weather_data_ultimate_list) #hashing out for now because there is a possible error in assignment
+    min_temp_and_location = find_min(weather_data_lows_list)
+    min_temp_value = min_temp_and_location[0]
+    min_temp_value_celcius = convert_f_to_c(min_temp_value)
+
+    for item in weather_data:
+        if min_temp_value == item[1] or min_temp_value == item[2]:
+            min_temp_date = item[0]
+    min_temp_date_formatted = convert_date(min_temp_date)
+
+
+    for item in weather_data:
+        if max_temp_value == item[1] or max_temp_value == item[2]:
+            max_temp_date = item[0]
+    max_temp_date_formatted = convert_date(max_temp_date)
+
+    #finding the average highs and lows
+    mean_lows = calculate_mean(weather_data_lows_list)
+    mean_lows = convert_f_to_c(mean_lows)
+    mean_highs = calculate_mean(weather_data_highs_list)
+    mean_highs= convert_f_to_c(mean_highs)
+    summary = f"{num_of_days} Day Overview\n  The lowest temperature will be {min_temp_value_celcius}°C, and will occur on {min_temp_date_formatted}.\n  The highest temperature will be {max_temp_value_celcius}°C, and will occur on {max_temp_date_formatted}.\n  The average low this week is {mean_lows}°C.\n  The average high this week is {mean_highs}°C.\n"
+    return summary
     pass
 
 
