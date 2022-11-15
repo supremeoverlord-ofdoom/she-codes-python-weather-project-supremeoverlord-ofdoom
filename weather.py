@@ -156,6 +156,7 @@ def generate_summary(weather_data):
     Returns:
         A string containing the summary information.
     """
+    #part 1: making a list of the minimums and a list of the maximums
 
     num_of_days = len(weather_data)
     weather_data_lows_list = []
@@ -166,29 +167,30 @@ def generate_summary(weather_data):
     for item in weather_data:
         weather_data_highs_list.append(item[2])
 
+    #redacted part: original approach to join both lists to find overal min and max but there is a mistake in the data
     # weather_data_ultimate_list = weather_data_lows_list + weather_data_highs_list
-    # print(weather_data_ultimate_list)
-
     # max_temp_and_location = find_max(weather_data_ultimate_list) #hashing out for now because there is a possible error in assignment
+    # min_temp_and_location = find_min(weather_data_ultimate_list) #hashing out for now because there is a possible error in assignment
+
+    #part 2: finding the min out of lists of mins and max out of list of max
     max_temp_and_location = find_max(weather_data_highs_list)
     max_temp_value = max_temp_and_location[0]
     max_temp_value_celcius = convert_f_to_c(max_temp_value)
 
-    # min_temp_and_location = find_min(weather_data_ultimate_list) #hashing out for now because there is a possible error in assignment
     min_temp_and_location = find_min(weather_data_lows_list)
     min_temp_value = min_temp_and_location[0]
     min_temp_value_celcius = convert_f_to_c(min_temp_value)
 
+    #part 3: finding the corresponding date in weather_data for the overall min and overall max
     for item in weather_data:
         if min_temp_value == item[1] or min_temp_value == item[2]:
             min_temp_date = item[0]
-    min_temp_date_formatted = convert_date(min_temp_date)
-
+    min_temp_date_formatted = convert_date(min_temp_date) #convert date from iso to text summary using previous function
 
     for item in weather_data:
         if max_temp_value == item[1] or max_temp_value == item[2]:
             max_temp_date = item[0]
-    max_temp_date_formatted = convert_date(max_temp_date)
+    max_temp_date_formatted = convert_date(max_temp_date) #convert date from iso to text summary using previous function
 
     #finding the average highs and lows
     mean_lows = calculate_mean(weather_data_lows_list)
@@ -208,4 +210,14 @@ def generate_daily_summary(weather_data):
     Returns:
         A string containing the summary information.
     """
+    #part 1: making a list with the sublists formatted to the right things
+    formatted_list = []
+    summary_string = f""
+    for item in weather_data:
+        formatted_list.append([convert_date(item[0]), convert_f_to_c(item[1]), convert_f_to_c(item[2])])
+    
+    #part 2 for each of the items in the formatted list, add a string to the mega summary_string
+    for item in formatted_list:
+        summary_string += f"---- {item[0]} ----\n  Minimum Temperature: {item[1]}°C\n  Maximum Temperature: {item[2]}°C\n\n"
+    return summary_string
     pass
